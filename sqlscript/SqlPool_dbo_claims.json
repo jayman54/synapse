@@ -7,7 +7,7 @@
 				"language": "sql"
 			},
 			"currentConnection": {
-				"name": "samplepool",
+				"name": "claims",
 				"type": "SqlOnDemand"
 			}
 		},
