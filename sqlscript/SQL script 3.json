@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "select count(*) C\nFROM\n(\nSELECT \nICD9_DGNS_CD_2, ICD9_DGNS_CD_3, Count(*) C\n FROM [dbo].[claims]\n group by ICD9_DGNS_CD_2, ICD9_DGNS_CD_3\n having count(*) > 50 and count(*) < 25000\n --order by 2 desc\n) a\n\nselect count(*) c from dbo.claims",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "samplepool",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
