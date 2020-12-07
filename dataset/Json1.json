@@ -1,0 +1,57 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "analyticsstoragejrs02",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"$schema": {
+					"type": "string"
+				},
+				"contentVersion": {
+					"type": "string"
+				},
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"environment": {
+							"type": "object",
+							"properties": {
+								"value": {
+									"type": "string"
+								}
+							}
+						},
+						"administratorLogin": {
+							"type": "object",
+							"properties": {
+								"value": {
+									"type": "string"
+								}
+							}
+						},
+						"administratorLoginPassword": {
+							"type": "object",
+							"properties": {
+								"value": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

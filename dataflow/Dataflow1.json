@@ -1,0 +1,50 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "rawClaims",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Select1"
+				},
+				{
+					"name": "Unpivot1"
+				},
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "Select2"
+				},
+				{
+					"name": "Unpivot2"
+				},
+				{
+					"name": "Aggregate2"
+				},
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(output(\n\t\tDESYNPUF_ID as string,\n\t\tCLM_ID as string,\n\t\tCLM_FROM_DT as date 'yyyyMMdd',\n\t\tCLM_THRU_DT as date 'yyyyMMdd',\n\t\tICD9_DGNS_CD_1 as string,\n\t\tICD9_DGNS_CD_2 as string,\n\t\tICD9_DGNS_CD_3 as string,\n\t\tICD9_DGNS_CD_4 as string,\n\t\tICD9_DGNS_CD_5 as string,\n\t\tICD9_DGNS_CD_6 as string,\n\t\tICD9_DGNS_CD_7 as string,\n\t\tICD9_DGNS_CD_8 as string,\n\t\tPRF_PHYSN_NPI_1 as double,\n\t\tPRF_PHYSN_NPI_2 as double,\n\t\tPRF_PHYSN_NPI_3 as double,\n\t\tPRF_PHYSN_NPI_4 as double,\n\t\tPRF_PHYSN_NPI_5 as double,\n\t\tPRF_PHYSN_NPI_6 as double,\n\t\tPRF_PHYSN_NPI_7 as double,\n\t\tPRF_PHYSN_NPI_8 as double,\n\t\tPRF_PHYSN_NPI_9 as double,\n\t\tPRF_PHYSN_NPI_10 as double,\n\t\tPRF_PHYSN_NPI_11 as double,\n\t\tPRF_PHYSN_NPI_12 as double,\n\t\tPRF_PHYSN_NPI_13 as double,\n\t\tTAX_NUM_1 as double,\n\t\tTAX_NUM_2 as double,\n\t\tTAX_NUM_3 as double,\n\t\tTAX_NUM_4 as double,\n\t\tTAX_NUM_5 as double,\n\t\tTAX_NUM_6 as double,\n\t\tTAX_NUM_7 as double,\n\t\tTAX_NUM_8 as double,\n\t\tTAX_NUM_9 as double,\n\t\tTAX_NUM_10 as double,\n\t\tTAX_NUM_11 as double,\n\t\tTAX_NUM_12 as double,\n\t\tTAX_NUM_13 as double,\n\t\tHCPCS_CD_1 as string,\n\t\tHCPCS_CD_2 as string,\n\t\tHCPCS_CD_3 as string,\n\t\tHCPCS_CD_4 as string,\n\t\tHCPCS_CD_5 as string,\n\t\tHCPCS_CD_6 as string,\n\t\tHCPCS_CD_7 as string,\n\t\tHCPCS_CD_8 as string,\n\t\tHCPCS_CD_9 as string,\n\t\tHCPCS_CD_10 as string,\n\t\tHCPCS_CD_11 as string,\n\t\tHCPCS_CD_12 as string,\n\t\tHCPCS_CD_13 as string,\n\t\tLINE_NCH_PMT_AMT_1 as double,\n\t\tLINE_NCH_PMT_AMT_2 as double,\n\t\tLINE_NCH_PMT_AMT_3 as double,\n\t\tLINE_NCH_PMT_AMT_4 as double,\n\t\tLINE_NCH_PMT_AMT_5 as double,\n\t\tLINE_NCH_PMT_AMT_6 as double,\n\t\tLINE_NCH_PMT_AMT_7 as double,\n\t\tLINE_NCH_PMT_AMT_8 as double,\n\t\tLINE_NCH_PMT_AMT_9 as double,\n\t\tLINE_NCH_PMT_AMT_10 as double,\n\t\tLINE_NCH_PMT_AMT_11 as double,\n\t\tLINE_NCH_PMT_AMT_12 as double,\n\t\tLINE_NCH_PMT_AMT_13 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_1 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_2 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_3 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_4 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_5 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_6 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_7 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_8 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_9 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_10 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_11 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_12 as double,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_13 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_1 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_2 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_3 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_4 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_5 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_6 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_7 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_8 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_9 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_10 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_11 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_12 as double,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_13 as double,\n\t\tLINE_COINSRNC_AMT_1 as double,\n\t\tLINE_COINSRNC_AMT_2 as double,\n\t\tLINE_COINSRNC_AMT_3 as double,\n\t\tLINE_COINSRNC_AMT_4 as double,\n\t\tLINE_COINSRNC_AMT_5 as double,\n\t\tLINE_COINSRNC_AMT_6 as double,\n\t\tLINE_COINSRNC_AMT_7 as double,\n\t\tLINE_COINSRNC_AMT_8 as double,\n\t\tLINE_COINSRNC_AMT_9 as double,\n\t\tLINE_COINSRNC_AMT_10 as double,\n\t\tLINE_COINSRNC_AMT_11 as double,\n\t\tLINE_COINSRNC_AMT_12 as double,\n\t\tLINE_COINSRNC_AMT_13 as double,\n\t\tLINE_ALOWD_CHRG_AMT_1 as double,\n\t\tLINE_ALOWD_CHRG_AMT_2 as double,\n\t\tLINE_ALOWD_CHRG_AMT_3 as double,\n\t\tLINE_ALOWD_CHRG_AMT_4 as double,\n\t\tLINE_ALOWD_CHRG_AMT_5 as double,\n\t\tLINE_ALOWD_CHRG_AMT_6 as double,\n\t\tLINE_ALOWD_CHRG_AMT_7 as double,\n\t\tLINE_ALOWD_CHRG_AMT_8 as double,\n\t\tLINE_ALOWD_CHRG_AMT_9 as double,\n\t\tLINE_ALOWD_CHRG_AMT_10 as double,\n\t\tLINE_ALOWD_CHRG_AMT_11 as double,\n\t\tLINE_ALOWD_CHRG_AMT_12 as double,\n\t\tLINE_ALOWD_CHRG_AMT_13 as double,\n\t\tLINE_PRCSG_IND_CD_1 as string,\n\t\tLINE_PRCSG_IND_CD_2 as string,\n\t\tLINE_PRCSG_IND_CD_3 as string,\n\t\tLINE_PRCSG_IND_CD_4 as string,\n\t\tLINE_PRCSG_IND_CD_5 as string,\n\t\tLINE_PRCSG_IND_CD_6 as string,\n\t\tLINE_PRCSG_IND_CD_7 as string,\n\t\tLINE_PRCSG_IND_CD_8 as string,\n\t\tLINE_PRCSG_IND_CD_9 as string,\n\t\tLINE_PRCSG_IND_CD_10 as string,\n\t\tLINE_PRCSG_IND_CD_11 as string,\n\t\tLINE_PRCSG_IND_CD_12 as string,\n\t\tLINE_PRCSG_IND_CD_13 as string,\n\t\tLINE_ICD9_DGNS_CD_1 as string,\n\t\tLINE_ICD9_DGNS_CD_2 as string,\n\t\tLINE_ICD9_DGNS_CD_3 as string,\n\t\tLINE_ICD9_DGNS_CD_4 as string,\n\t\tLINE_ICD9_DGNS_CD_5 as string,\n\t\tLINE_ICD9_DGNS_CD_6 as string,\n\t\tLINE_ICD9_DGNS_CD_7 as string,\n\t\tLINE_ICD9_DGNS_CD_8 as string,\n\t\tLINE_ICD9_DGNS_CD_9 as string,\n\t\tLINE_ICD9_DGNS_CD_10 as string,\n\t\tLINE_ICD9_DGNS_CD_11 as string,\n\t\tLINE_ICD9_DGNS_CD_12 as string,\n\t\tLINE_ICD9_DGNS_CD_13 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\trowUrlColumn: 'sourceFile') ~> source1\nsource1 select(mapColumn(\n\t\tDESYNPUF_ID,\n\t\tCLM_ID,\n\t\tICD9_DGNS_CD_1,\n\t\tICD9_DGNS_CD_2,\n\t\tICD9_DGNS_CD_3,\n\t\tICD9_DGNS_CD_4,\n\t\tICD9_DGNS_CD_5,\n\t\tICD9_DGNS_CD_6,\n\t\tICD9_DGNS_CD_7,\n\t\tICD9_DGNS_CD_8,\n\t\tCLM_FROM_DT,\n\t\tCLM_THRU_DT\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 unpivot(output(\n\t\tCD_Num as string,\n\t\tICD9_DGNS_CD as string\n\t),\n\tungroupBy(DESYNPUF_ID,\n\t\tCLM_ID,\n\t\tCLM_FROM_DT,\n\t\tCLM_THRU_DT),\n\tlateral: false,\n\tignoreNullPivots: true) ~> Unpivot1\nUnpivot1 aggregate(groupBy(DESYNPUF_ID,\n\t\tCLM_ID,\n\t\tCLM_FROM_DT,\n\t\tCLM_THRU_DT),\n\tICD9_DGNS_CD = collect(ICD9_DGNS_CD)) ~> Aggregate1\nsource1 select(mapColumn(\n\t\tDESYNPUF_ID,\n\t\tCLM_ID,\n\t\tPRF_PHYSN_NPI_1,\n\t\tPRF_PHYSN_NPI_2,\n\t\tPRF_PHYSN_NPI_3,\n\t\tPRF_PHYSN_NPI_4,\n\t\tPRF_PHYSN_NPI_5,\n\t\tPRF_PHYSN_NPI_6,\n\t\tPRF_PHYSN_NPI_7,\n\t\tPRF_PHYSN_NPI_8,\n\t\tPRF_PHYSN_NPI_9,\n\t\tPRF_PHYSN_NPI_10,\n\t\tPRF_PHYSN_NPI_11,\n\t\tPRF_PHYSN_NPI_12,\n\t\tPRF_PHYSN_NPI_13\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select2\nSelect2 unpivot(output(\n\t\tCD_Num as string,\n\t\tPRF_PHYSN_NPI as double\n\t),\n\tungroupBy(DESYNPUF_ID,\n\t\tCLM_ID),\n\tlateral: true,\n\tignoreNullPivots: true) ~> Unpivot2\nUnpivot2 aggregate(groupBy(DESYNPUF_ID,\n\t\tCLM_ID),\n\tPRF_PHYSN_NPI = collect(PRF_PHYSN_NPI)) ~> Aggregate2\nAggregate1, Aggregate2 join(Aggregate1@DESYNPUF_ID == Aggregate2@DESYNPUF_ID\n\t&& Aggregate1@CLM_ID == Aggregate2@CLM_ID,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join1\nJoin1 sink(input(\n\t\t{$schema} as string,\n\t\tcontentVersion as string,\n\t\tparameters as (environment as (value as string), administratorLogin as (value as string), administratorLoginPassword as (value as string))\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}
