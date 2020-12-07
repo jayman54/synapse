@@ -19,7 +19,15 @@
 					"name": "srcItems"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "prqItems",
+						"type": "DatasetReference"
+					},
+					"name": "snkItems"
+				}
+			],
 			"transformations": [
 				{
 					"name": "drvItemCategories"
@@ -28,10 +36,10 @@
 					"name": "drvItems"
 				},
 				{
-					"name": "Join1"
+					"name": "jnItems"
 				}
 			],
-			"script": "source(output(\n\t\titem_category_name as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItemCategories\nsource(output(\n\t\titem_name as string,\n\t\titem_id as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItems\nsrcItemCategories derive(item_category_id = toInteger(item_category_id)) ~> drvItemCategories\nsrcItems derive(item_id = toInteger(item_id),\n\t\titem_category_id = toInteger(item_category_id)) ~> drvItems\ndrvItems, drvItemCategories join(drvItems@item_category_id == drvItemCategories@item_category_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1"
+			"script": "source(output(\n\t\titem_category_name as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItemCategories\nsource(output(\n\t\titem_name as string,\n\t\titem_id as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItems\nsrcItemCategories derive(item_category_id = toInteger(item_category_id)) ~> drvItemCategories\nsrcItems derive(item_id = toInteger(item_id),\n\t\titem_category_id = toInteger(item_category_id)) ~> drvItems\ndrvItems, drvItemCategories join(drvItems@item_category_id == drvItemCategories@item_category_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> jnItems\njnItems sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> snkItems"
 		}
 	}
 }
