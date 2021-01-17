@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synapsejrs"
+		},
+		"AMLJRS_servicePrincipalKey": {
+			"value": ""
+		},
+		"synapsejrs-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"AMLJRS_properties_typeProperties_subscriptionId": {
+			"value": "201fa29b-5672-4347-9909-fa57d294b356"
+		},
+		"AMLJRS_properties_typeProperties_resourceGroupName": {
+			"value": "AML"
+		},
+		"AMLJRS_properties_typeProperties_servicePrincipalId": {
+			"value": "18d5fc48-1af3-4bad-af27-3f54b1a22f8b"
+		},
+		"AMLJRS_properties_typeProperties_tenant": {
+			"value": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		},
+		"PartD_Prescriber_PUF_NPI_DRUG_properties_typeProperties_url": {
+			"value": "http://download.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/PartD_Prescriber_PUF_NPI_DRUG_@{linkedService().prmYear}.zip"
+		},
+		"analyticsstoragejrs02_properties_typeProperties_url": {
+			"value": "https://analyticsstoragejrs02.dfs.core.windows.net"
+		},
+		"city_safety_boston_sasUri": {
+			"value": ""
+		},
+		"nyc_tlc_yellow_sasUri": {
+			"value": ""
+		},
+		"synapsejrs-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapselakejrs.dfs.core.windows.net"
+		}
+	}
+}
