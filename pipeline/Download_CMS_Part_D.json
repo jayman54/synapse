@@ -38,7 +38,10 @@
 						"referenceName": "CMSWebsite",
 						"type": "DatasetReference",
 						"parameters": {
-							"prmYear": "13"
+							"prmYear": {
+								"value": "@pipeline().parameters.prmYear",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -47,7 +50,10 @@
 						"referenceName": "CMSZipped_Part_D",
 						"type": "DatasetReference",
 						"parameters": {
-							"prmYear": "13"
+							"prmYear": {
+								"value": "@pipeline().parameters.prmYear",
+								"type": "Expression"
+							}
 						}
 					}
 				]
