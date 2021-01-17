@@ -1,0 +1,31 @@
+{
+	"name": "CMSZipped_Part_D",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"prmYear": {
+				"type": "string",
+				"defaultValue": "13"
+			}
+		},
+		"folder": {
+			"name": "CMS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@PartD_Prescriber_PUF_NPI_DRUG_@{dataset().prmYear}.zip\n\n",
+					"type": "Expression"
+				},
+				"folderPath": "cms-part-d/raw",
+				"fileSystem": "synapselake"
+			}
+		}
+	}
+}
