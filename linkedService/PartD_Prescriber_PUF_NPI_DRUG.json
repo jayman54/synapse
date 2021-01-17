@@ -1,10 +1,16 @@
 {
 	"name": "PartD_Prescriber_PUF_NPI_DRUG",
 	"properties": {
+		"parameters": {
+			"prmYear": {
+				"type": "string",
+				"defaultValue": "13"
+			}
+		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "http://download.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/PartD_Prescriber_PUF_NPI_DRUG_13.zip",
+			"url": "@{http://download.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/PartD_Prescriber_PUF_NPI_DRUG_@{linkedService().prmYear}.zip}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		},
