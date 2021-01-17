@@ -1,0 +1,41 @@
+{
+	"name": "pfsDataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "itemCategories",
+						"type": "DatasetReference"
+					},
+					"name": "srcItemCategories"
+				},
+				{
+					"dataset": {
+						"referenceName": "items",
+						"type": "DatasetReference"
+					},
+					"name": "srcItems"
+				}
+			],
+			"sinks": [
+				{
+					"name": "snkItems"
+				}
+			],
+			"transformations": [
+				{
+					"name": "drvItemCategories"
+				},
+				{
+					"name": "drvItems"
+				},
+				{
+					"name": "jnItems"
+				}
+			],
+			"script": "source(output(\n\t\titem_category_name as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItemCategories\nsource(output(\n\t\titem_name as string,\n\t\titem_id as string,\n\t\titem_category_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> srcItems\nsrcItemCategories derive(item_category_id = toInteger(item_category_id)) ~> drvItemCategories\nsrcItems derive(item_id = toInteger(item_id),\n\t\titem_category_id = toInteger(item_category_id)) ~> drvItems\ndrvItems, drvItemCategories join(drvItems@item_category_id == drvItemCategories@item_category_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> jnItems\njnItems sink(skipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> snkItems"
+		}
+	}
+}
