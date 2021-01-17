@@ -1,0 +1,28 @@
+{
+	"name": "CMSWebsite",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "PartD_Prescriber_PUF_NPI_DRUG",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"prmYear": "13"
+			}
+		},
+		"parameters": {
+			"prmYear": {
+				"type": "string",
+				"defaultValue": "13"
+			}
+		},
+		"folder": {
+			"name": "CMS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	}
+}

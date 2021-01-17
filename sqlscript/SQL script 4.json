@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 4",
+	"properties": {
+		"content": {
+			"query": "SELECT count(*) c\n FROM [claims].[dbo].[claims]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "default",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
