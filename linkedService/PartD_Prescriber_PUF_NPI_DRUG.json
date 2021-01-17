@@ -1,12 +1,6 @@
 {
 	"name": "PartD_Prescriber_PUF_NPI_DRUG",
 	"properties": {
-		"parameters": {
-			"prmYear": {
-				"type": "String",
-				"defaultValue": "13"
-			}
-		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
