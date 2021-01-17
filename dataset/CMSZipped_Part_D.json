@@ -20,7 +20,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@PartD_Prescriber_PUF_NPI_DRUG_@{dataset().prmYear}.zip\n\n",
+					"value": "PartD_Prescriber_PUF_NPI_DRUG_@{dataset().prmYear}.zip",
 					"type": "Expression"
 				},
 				"folderPath": "cms-part-d/raw",

@@ -5,7 +5,10 @@
 			"referenceName": "PartD_Prescriber_PUF_NPI_DRUG",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"prmYear": "13"
+				"prmYear": {
+					"value": "@dataset().prmYear",
+					"type": "Expression"
+				}
 			}
 		},
 		"parameters": {
