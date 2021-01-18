@@ -25,6 +25,10 @@
 				},
 				"folderPath": "cms-part-d/raw",
 				"fileSystem": "synapselake"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
 			}
 		}
 	}
