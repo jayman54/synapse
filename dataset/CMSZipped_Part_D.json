@@ -9,6 +9,10 @@
 			"prmYear": {
 				"type": "string",
 				"defaultValue": "13"
+			},
+			"prmFile": {
+				"type": "string",
+				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_13.zip"
 			}
 		},
 		"folder": {
@@ -20,7 +24,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "PartD_Prescriber_PUF_NPI_DRUG_@{dataset().prmYear}.zip",
+					"value": "@dataset().prmFile",
 					"type": "Expression"
 				},
 				"folderPath": "cms-part-d/raw",

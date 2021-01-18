@@ -51,7 +51,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"prmYear": {
-								"value": "@pipeline().parameters.prmYear",
+								"value": "PartD_Prescriber_PUF_NPI_DRUG_@{pipeline().parameters.prmYear}.zip",
 								"type": "Expression"
 							}
 						}
