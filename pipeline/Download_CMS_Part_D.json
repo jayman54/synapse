@@ -53,9 +53,7 @@
 							"prmFile": {
 								"value": "PartD_Prescriber_PUF_NPI_DRUG_@{pipeline().parameters.prmYear}.zip",
 								"type": "Expression"
-							},
-							"prmCompressionType": "None",
-							"prmCompressionLevel": "None"
+							}
 						}
 					}
 				]
