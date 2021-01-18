@@ -9,6 +9,12 @@
 			"prmFile": {
 				"type": "string",
 				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_10.zip"
+			},
+			"prmCompressionType": {
+				"type": "string"
+			},
+			"prmCompressionLevel": {
+				"type": "string"
 			}
 		},
 		"folder": {
@@ -27,8 +33,14 @@
 				"fileSystem": "synapselake"
 			},
 			"compression": {
-				"type": "ZipDeflate",
-				"level": "Fastest"
+				"type": {
+					"value": "@dataset().prmCompressionType",
+					"type": "Expression"
+				},
+				"level": {
+					"value": "@dataset().prmCompressionLevel",
+					"type": "Expression"
+				}
 			}
 		}
 	}
