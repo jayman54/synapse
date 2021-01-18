@@ -37,6 +37,12 @@
 		},
 		"synapsejrs-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://synapselakejrs.dfs.core.windows.net"
+		},
+		"trgUncompress_properties_Uncompress_CMS_Part_D_parameters_prmFile": {
+			"value": "@triggerBody().fileName"
+		},
+		"trgUncompress_properties_typeProperties_scope": {
+			"value": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Storage/storageAccounts/synapselakejrs"
 		}
 	}
 }

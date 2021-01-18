@@ -50,21 +50,20 @@
 		"synapsejrs-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://synapselakejrs.dfs.core.windows.net"
+		},
+		"trgUncompress_properties_Uncompress_CMS_Part_D_parameters_prmFile": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"trgUncompress_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Storage/storageAccounts/synapselakejrs"
 		}
 	},
 	"variables": {
 		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('workspaceName'), '/jrssqlpool')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": []
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/Download_CMS_Part_D')]",
 			"type": "Microsoft.Synapse/workspaces/pipelines",
@@ -119,8 +118,8 @@
 								"referenceName": "CMSZipped_Part_D",
 								"type": "DatasetReference",
 								"parameters": {
-									"prmYear": {
-										"value": "@pipeline().parameters.prmYear",
+									"prmFile": {
+										"value": "PartD_Prescriber_PUF_NPI_DRUG_@{pipeline().parameters.prmYear}.zip",
 										"type": "Expression"
 									}
 								}
@@ -150,7 +149,10 @@
 					"referenceName": "PartD_Prescriber_PUF_NPI_DRUG",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"prmYear": "13"
+						"prmYear": {
+							"value": "@dataset().prmYear",
+							"type": "Expression"
+						}
 					}
 				},
 				"parameters": {
@@ -184,9 +186,9 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"prmYear": {
+					"prmFile": {
 						"type": "string",
-						"defaultValue": "13"
+						"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_10.zip"
 					}
 				},
 				"folder": {
@@ -198,7 +200,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": {
-							"value": "@PartD_Prescriber_PUF_NPI_DRUG_@{dataset().prmYear}.zip\n\n",
+							"value": "@dataset().prmFile",
 							"type": "Expression"
 						},
 						"folderPath": "cms-part-d/raw",
@@ -244,7 +246,7 @@
 			"properties": {
 				"parameters": {
 					"prmYear": {
-						"type": "String",
+						"type": "string",
 						"defaultValue": "13"
 					}
 				},
@@ -971,6 +973,189 @@
 				]
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/jrssqlpool')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Uncompress_CMS_Part_D')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "CMSUnZipping_Part_D",
+								"type": "DatasetReference",
+								"parameters": {
+									"prmFile": {
+										"value": "@pipeline().parameters.prmFile",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "CMSUnZipped_Part_D",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"prmFile": {
+						"type": "string",
+						"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_13.zip"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/CMSUnZipping_Part_D')]",
+				"[concat(variables('workspaceId'), '/datasets/CMSUnZipped_Part_D')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CMSUnZipped_Part_D')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CMS"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "cms-part-d/raw",
+						"fileSystem": "synapselake"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapsejrs-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CMSUnZipping_Part_D')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"prmFile": {
+						"type": "string",
+						"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_10.zip"
+					}
+				},
+				"folder": {
+					"name": "CMS"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().prmFile",
+							"type": "Expression"
+						},
+						"folderPath": "cms-part-d/raw",
+						"fileSystem": "synapselake"
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Fastest"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapsejrs-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/trgUncompress')]",
+			"type": "Microsoft.Synapse/workspaces/triggers",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Uncompress_CMS_Part_D",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"prmFile": "[parameters('trgUncompress_properties_Uncompress_CMS_Part_D_parameters_prmFile')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/synapselake/blobs/cms-part-d/raw/",
+					"blobPathEndsWith": ".zip",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trgUncompress_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/pipelines/Uncompress_CMS_Part_D')]"
+			]
 		}
 	]
 }
