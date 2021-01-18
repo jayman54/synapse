@@ -14,15 +14,15 @@
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "CMS_Part_D_Native_Parquet",
-						"type": "DatasetReference"
+					"linkedService": {
+						"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
 					},
 					"name": "sink1"
 				}
 			],
 			"transformations": [],
-			"script": "source(output(\n\t\tnpi as string,\n\t\tnppes_provider_last_org_name as string,\n\t\tnppes_provider_first_name as string,\n\t\tnppes_provider_city as string,\n\t\tnppes_provider_state as string,\n\t\tspecialty_description as string,\n\t\tdescription_flag as string,\n\t\tdrug_name as string,\n\t\tgeneric_name as string,\n\t\tbene_count as integer,\n\t\ttotal_claim_count as integer,\n\t\ttotal_30_day_fill_count as double,\n\t\ttotal_day_supply as integer,\n\t\ttotal_drug_cost as double,\n\t\tbene_count_ge65 as integer,\n\t\tbene_count_ge65_suppress_flag as string,\n\t\ttotal_claim_count_ge65 as integer,\n\t\tge65_suppress_flag as string,\n\t\ttotal_30_day_fill_count_ge65 as double,\n\t\ttotal_day_supply_ge65 as integer,\n\t\ttotal_drug_cost_ge65 as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\ttruncate: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"script": "source(output(\n\t\tnpi as string,\n\t\tnppes_provider_last_org_name as string,\n\t\tnppes_provider_first_name as string,\n\t\tnppes_provider_city as string,\n\t\tnppes_provider_state as string,\n\t\tspecialty_description as string,\n\t\tdescription_flag as string,\n\t\tdrug_name as string,\n\t\tgeneric_name as string,\n\t\tbene_count as integer,\n\t\ttotal_claim_count as integer,\n\t\ttotal_30_day_fill_count as double,\n\t\ttotal_day_supply as integer,\n\t\ttotal_drug_cost as double,\n\t\tbene_count_ge65 as integer,\n\t\tbene_count_ge65_suppress_flag as string,\n\t\ttotal_claim_count_ge65 as integer,\n\t\tge65_suppress_flag as string,\n\t\ttotal_30_day_fill_count_ge65 as double,\n\t\ttotal_day_supply_ge65 as integer,\n\t\ttotal_drug_cost_ge65 as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'synapselake',\n\tfolderPath: 'cms-part-d/native',\n\ttruncate: false,\n\tmergeSchema: false,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }

@@ -5,6 +5,9 @@
 			"referenceName": "synapsejrs-WorkspaceDefaultStorage",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "CMS"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
