@@ -17,7 +17,7 @@
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/synapselake/blobs/cms-part-d/raw/",
-			"blobPathEndsWith": ".txt",
+			"blobPathEndsWith": ".zip",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Storage/storageAccounts/synapselakejrs",
 			"events": [
