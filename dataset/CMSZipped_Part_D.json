@@ -6,13 +6,9 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"prmYear": {
-				"type": "string",
-				"defaultValue": "13"
-			},
 			"prmFile": {
 				"type": "string",
-				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_13.zip"
+				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_10.zip"
 			}
 		},
 		"folder": {
