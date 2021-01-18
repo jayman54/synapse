@@ -1,0 +1,21 @@
+{
+	"name": "CMSUnZipped_Part_D",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CMS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "cms-part-d/raw",
+				"fileSystem": "synapselake"
+			}
+		}
+	}
+}
