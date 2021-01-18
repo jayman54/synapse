@@ -1,0 +1,35 @@
+{
+	"name": "CMSUnZipping_Part_D",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapsejrs-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"prmFile": {
+				"type": "string",
+				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_10.zip"
+			}
+		},
+		"folder": {
+			"name": "CMS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().prmFile",
+					"type": "Expression"
+				},
+				"folderPath": "cms-part-d/raw",
+				"fileSystem": "synapselake"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
+			}
+		}
+	}
+}

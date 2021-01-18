@@ -38,7 +38,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "CMSZipped_Part_D",
+						"referenceName": "CMSUnZipping_Part_D",
 						"type": "DatasetReference",
 						"parameters": {
 							"prmFile": {
