@@ -64,9 +64,32 @@
 					]
 				},
 				"source": [
-					"prmYear = '15'"
+					"prmYear = '15'\r\n",
+					"prmFileName = 'PartD_Prescriber_PUF_NPI_Drug_13.txt'"
 				],
-				"execution_count": 128
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"def getYear(fileName):\r\n",
+					"    f =prmFileName.split('.')[0]\r\n",
+					"    tdy = f[len(f)-2:]\r\n",
+					"    return '20{0}'.format(tdy)"
+				],
+				"execution_count": 32
 			},
 			{
 				"cell_type": "code",
@@ -84,9 +107,10 @@
 					"tags": []
 				},
 				"source": [
-					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/PartD_Prescriber_PUF_NPI_Drug_{0}.txt'.format(prmYear)\r\n",
+					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/{0}'.format(prmFileName)\r\n",
 					"deltaPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/native/'\r\n",
-					"vYear = '20{0}'.format(prmYear)"
+					"\r\n",
+					"vYear = getYear(prmFileName)"
 				],
 				"execution_count": 129
 			},
