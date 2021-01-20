@@ -48,6 +48,69 @@
 		"cells": [
 			{
 				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true,
+					"tags": [
+						"parameters"
+					]
+				},
+				"source": [
+					"prmYear = '13'"
+				],
+				"execution_count": 99
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true,
+					"tags": []
+				},
+				"source": [
+					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/PartD_Prescriber_PUF_NPI_Drug_{0}.txt'.format(prmYear)\r\n",
+					"deltaPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/native/'\r\n",
+					"vYear = '20{0}'.format(prmYear)"
+				],
+				"execution_count": 101
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"vYear"
+				],
+				"execution_count": 103
+			},
+			{
+				"cell_type": "code",
 				"source": [
 					"from pyspark.sql.types import StringType, FloatType, IntegerType, StructType, StructField\r\n",
 					"\r\n",
@@ -89,33 +152,12 @@
 							"deleting": false
 						}
 					},
-					"collapsed": true
-				},
-				"source": [
-					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/PartD_Prescriber_PUF_NPI_Drug_13.txt'\r\n",
-					"deltaPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/native/'\r\n",
-					"vYear = '2013'"
-				],
-				"execution_count": 54
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
 					"collapsed": false
 				},
 				"source": [
 					"df = spark.read.format(\"csv\").option(\"header\", \"true\").option(\"delimiter\", \"\\t\").schema(scheamPartD).load(csvPath)"
 				],
-				"execution_count": 64
+				"execution_count": 93
 			},
 			{
 				"cell_type": "code",
@@ -135,7 +177,7 @@
 					"import pyspark.sql.functions as F\r\n",
 					"df = df.withColumn(\"year\", F.lit(vYear).astype(\"string\"))"
 				],
-				"execution_count": 65
+				"execution_count": 94
 			},
 			{
 				"cell_type": "code",
@@ -152,9 +194,14 @@
 					"collapsed": false
 				},
 				"source": [
-					"df.write.format('delta').partitionBy('year').mode('overwrite').save(deltaPath)"
+					"(df.write.format('delta')\r\n",
+					".partitionBy('year')\r\n",
+					".mode('overwrite')\r\n",
+					".option(\"replaceWhere\", \"year = '{0}'\".format(vYear))\r\n",
+					".save(deltaPath)\r\n",
+					")"
 				],
-				"execution_count": 68
+				"execution_count": 95
 			},
 			{
 				"cell_type": "code",
@@ -173,7 +220,7 @@
 				"source": [
 					"ddf = spark.read.format(\"delta\").load(deltaPath)"
 				],
-				"execution_count": 62
+				"execution_count": 96
 			},
 			{
 				"cell_type": "code",
@@ -192,7 +239,7 @@
 				"source": [
 					"ddf.count()"
 				],
-				"execution_count": 63
+				"execution_count": 97
 			},
 			{
 				"cell_type": "code",
@@ -209,7 +256,7 @@
 					"collapsed": true
 				},
 				"source": [
-					""
+					"24,120,618"
 				],
 				"execution_count": null
 			}
