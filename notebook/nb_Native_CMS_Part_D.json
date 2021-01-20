@@ -93,9 +93,10 @@
 				},
 				"source": [
 					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/PartD_Prescriber_PUF_NPI_Drug_13.txt'\r\n",
-					""
+					"deltaPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/native/'\r\n",
+					"vYear = '2013'"
 				],
-				"execution_count": 31
+				"execution_count": 54
 			},
 			{
 				"cell_type": "code",
@@ -112,11 +113,9 @@
 					"collapsed": false
 				},
 				"source": [
-					"df = spark.read.format(\"csv\").option(\"header\", \"true\").option(\"delimiter\", \"\\t\").schema(scheamPartD).load(csvPath)\r\n",
-					"\r\n",
-					"display(df.limit(10))"
+					"df = spark.read.format(\"csv\").option(\"header\", \"true\").option(\"delimiter\", \"\\t\").schema(scheamPartD).load(csvPath)"
 				],
-				"execution_count": 44
+				"execution_count": 64
 			},
 			{
 				"cell_type": "code",
@@ -133,9 +132,67 @@
 					"collapsed": false
 				},
 				"source": [
-					""
+					"import pyspark.sql.functions as F\r\n",
+					"df = df.withColumn(\"year\", F.lit(vYear).astype(\"string\"))"
 				],
-				"execution_count": 38
+				"execution_count": 65
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df.write.format('delta').partitionBy('year').mode('overwrite').save(deltaPath)"
+				],
+				"execution_count": 68
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"ddf = spark.read.format(\"delta\").load(deltaPath)"
+				],
+				"execution_count": 62
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"ddf.count()"
+				],
+				"execution_count": 63
 			},
 			{
 				"cell_type": "code",
