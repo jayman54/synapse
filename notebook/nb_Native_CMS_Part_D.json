@@ -1,0 +1,161 @@
+{
+	"name": "nb_Native_CMS_Part_D",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkjrs3",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Synapse/workspaces/synapsejrs/bigDataPools/sparkjrs3",
+				"name": "sparkjrs3",
+				"type": "Spark",
+				"endpoint": "https://synapsejrs.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkjrs3",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 9,
+				"cores": 8,
+				"memory": 56,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"from pyspark.sql.types import StringType, FloatType, IntegerType, StructType, StructField\r\n",
+					"\r\n",
+					"scheamPartD = StructType(\r\n",
+					"[StructField('npi', StringType(), True),\r\n",
+					" StructField('nppes_provider_last_org_name', StringType(), True),\r\n",
+					" StructField('nppes_provider_first_mame', StringType(), True),\r\n",
+					" StructField('nppes_provider_city', StringType(), True),\r\n",
+					" StructField('nppes_provider_state', StringType(), True),\r\n",
+					" StructField('specialty_description', StringType(), True),\r\n",
+					" StructField('description_flag', StringType(), True),\r\n",
+					" StructField('drug_name', StringType(), True),\r\n",
+					" StructField('generic_name', StringType(), True),\r\n",
+					" StructField('bene_count', IntegerType(), True),\r\n",
+					" StructField('total_claim_count', IntegerType(), True),\r\n",
+					" StructField('total_30_day_fill_count', FloatType(), True),\r\n",
+					" StructField('total_day_supply', IntegerType(), True),\r\n",
+					" StructField('total_drug_cost', FloatType(), True),\r\n",
+					" StructField('bene_count_ge65', IntegerType(), True),\r\n",
+					" StructField('bene_count_ge65_supress_flag', StringType(), True),\r\n",
+					" StructField('total_claim_count_ge65', IntegerType(), True),\r\n",
+					" StructField('ge65_supress_flag', StringType(), True),\r\n",
+					" StructField('total_30_day_fill_count_ge65', FloatType(), True),\r\n",
+					" StructField('total_day_supply_ge65', IntegerType(), True),\r\n",
+					" StructField('total_drug_cost_ge65', FloatType(), True)\r\n",
+					"])"
+				],
+				"execution_count": 30
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"csvPath = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/cms-part-d/raw/PartD_Prescriber_PUF_NPI_Drug_13.txt'\r\n",
+					""
+				],
+				"execution_count": 31
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df = spark.read.format(\"csv\").option(\"header\", \"true\").option(\"delimiter\", \"\\t\").schema(scheamPartD).load(csvPath)\r\n",
+					"\r\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 44
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					""
+				],
+				"execution_count": 38
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					""
+				],
+				"execution_count": null
+			}
+		]
+	}
+}
