@@ -92,25 +92,6 @@
 			},
 			{
 				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"collapsed": true
-				},
-				"source": [
-					"vYear"
-				],
-				"execution_count": 103
-			},
-			{
-				"cell_type": "code",
 				"source": [
 					"from pyspark.sql.types import StringType, FloatType, IntegerType, StructType, StructField\r\n",
 					"\r\n",
@@ -240,25 +221,6 @@
 					"ddf.count()"
 				],
 				"execution_count": 97
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"collapsed": true
-				},
-				"source": [
-					"24,120,618"
-				],
-				"execution_count": null
 			}
 		]
 	}
