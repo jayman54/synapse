@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "dflw_Native_CMS_Part_D",
-				"type": "ExecuteDataFlow",
+				"name": "Notebook1",
+				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -15,15 +15,16 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "dflw_Native_CMS_Part_D",
-						"type": "DataFlowReference"
+					"notebook": {
+						"referenceName": "nb_Native_CMS_Part_D",
+						"type": "NotebookReference"
 					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"traceLevel": "Fine"
+					"parameters": {
+						"prmYear": {
+							"value": "15",
+							"type": "string"
+						}
+					}
 				}
 			}
 		],
