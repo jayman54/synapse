@@ -20,14 +20,22 @@
 						"type": "NotebookReference"
 					},
 					"parameters": {
-						"prmYear": {
-							"value": "14",
+						"prmFileName": {
+							"value": {
+								"value": "@pipeline().parameters.prmFile",
+								"type": "Expression"
+							},
 							"type": "string"
 						}
 					}
 				}
 			}
 		],
+		"parameters": {
+			"prmFile": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
