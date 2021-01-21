@@ -21,10 +21,6 @@
 		},
 		"metadata": {
 			"saveOutput": true,
-			"kernelspec": {
-				"name": "synapse_pyspark",
-				"display_name": "Synapse PySpark"
-			},
 			"language_info": {
 				"name": "python"
 			},
@@ -64,7 +60,6 @@
 					]
 				},
 				"source": [
-					"prmYear = '15'\r\n",
 					"prmFileName = 'PartD_Prescriber_PUF_NPI_Drug_13.txt'"
 				],
 				"execution_count": 1
