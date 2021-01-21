@@ -36,6 +36,9 @@
 				"type": "string"
 			}
 		},
+		"folder": {
+			"name": "CMS_Part_D"
+		},
 		"annotations": []
 	}
 }

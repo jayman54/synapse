@@ -63,6 +63,9 @@
 				"defaultValue": "PartD_Prescriber_PUF_NPI_DRUG_13.zip"
 			}
 		},
+		"folder": {
+			"name": "CMS_Part_D"
+		},
 		"annotations": []
 	}
 }

@@ -65,6 +65,9 @@
 				"defaultValue": "13"
 			}
 		},
+		"folder": {
+			"name": "CMS_Part_D"
+		},
 		"annotations": []
 	}
 }
