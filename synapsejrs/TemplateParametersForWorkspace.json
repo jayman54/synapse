@@ -43,6 +43,12 @@
 		},
 		"trgUncompress_properties_typeProperties_scope": {
 			"value": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Storage/storageAccounts/synapselakejrs"
+		},
+		"trgNative_properties_Native_CMS_Part_D_parameters_prmFile": {
+			"value": "@triggerBody().fileName"
+		},
+		"trgNative_properties_typeProperties_scope": {
+			"value": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Storage/storageAccounts/synapselakejrs"
 		}
 	}
 }
