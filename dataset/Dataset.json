@@ -1,0 +1,590 @@
+{
+	"name": "Dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "analyticsstoragejrs02",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "part-00000-b3877c92-bffa-4c90-82fb-5eca661d4022-c000.snappy.parquet",
+				"folderPath": "carrierClaims/parquet",
+				"fileSystem": "native"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "DESYNPUF_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CLM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CLM_FROM_DT",
+				"type": "DATE"
+			},
+			{
+				"name": "CLM_THRU_DT",
+				"type": "DATE"
+			},
+			{
+				"name": "ICD9_DGNS_CD_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "ICD9_DGNS_CD_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRF_PHYSN_NPI_13",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAX_NUM_13",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "HCPCS_CD_13",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_1",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_2",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_3",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_4",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_5",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_6",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_7",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_8",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_9",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_10",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_11",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_12",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_NCH_PMT_AMT_13",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_1",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_2",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_3",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_4",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_5",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_6",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_7",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_8",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_9",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_10",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_11",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_12",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PTB_DDCTBL_AMT_13",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_1",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_2",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_3",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_4",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_5",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_6",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_7",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_8",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_9",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_10",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_11",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_12",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_BENE_PRMRY_PYR_PD_AMT_13",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_1",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_2",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_3",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_4",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_5",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_6",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_7",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_8",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_9",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_10",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_11",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_12",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_COINSRNC_AMT_13",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_1",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_2",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_3",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_4",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_5",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_6",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_7",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_8",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_9",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_10",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_11",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_12",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_ALOWD_CHRG_AMT_13",
+				"type": "FLOAT"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_PRCSG_IND_CD_13",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "LINE_ICD9_DGNS_CD_13",
+				"type": "UTF8"
+			}
+		]
+	}
+}
