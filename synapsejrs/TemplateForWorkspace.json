@@ -209,6 +209,53 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/Pipeline 1')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "DataflowFiles",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DataflowFiles",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/dataflows/DataflowFiles')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Uncompress_CMS_Part_D')]",
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
@@ -426,6 +473,626 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/synapsejrs-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Dataset')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "analyticsstoragejrs02",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "part-00000-b3877c92-bffa-4c90-82fb-5eca661d4022-c000.snappy.parquet",
+						"folderPath": "carrierClaims/parquet",
+						"fileSystem": "native"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "DESYNPUF_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "CLM_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "CLM_FROM_DT",
+						"type": "DATE"
+					},
+					{
+						"name": "CLM_THRU_DT",
+						"type": "DATE"
+					},
+					{
+						"name": "ICD9_DGNS_CD_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICD9_DGNS_CD_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "PRF_PHYSN_NPI_13",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAX_NUM_13",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "HCPCS_CD_13",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_1",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_2",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_3",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_4",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_5",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_6",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_7",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_8",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_9",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_10",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_11",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_12",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_NCH_PMT_AMT_13",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_1",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_2",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_3",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_4",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_5",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_6",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_7",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_8",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_9",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_10",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_11",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_12",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PTB_DDCTBL_AMT_13",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_1",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_2",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_3",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_4",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_5",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_6",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_7",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_8",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_9",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_10",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_11",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_12",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_13",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_1",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_2",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_3",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_4",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_5",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_6",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_7",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_8",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_9",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_10",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_11",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_12",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_COINSRNC_AMT_13",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_1",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_2",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_3",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_4",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_5",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_6",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_7",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_8",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_9",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_10",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_11",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_12",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_ALOWD_CHRG_AMT_13",
+						"type": "FLOAT"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_PRCSG_IND_CD_13",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "LINE_ICD9_DGNS_CD_13",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/analyticsstoragejrs02')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Sync')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "analyticsstoragejrs02",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Test",
+						"fileSystem": "native"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/analyticsstoragejrs02')]"
 			]
 		},
 		{
@@ -668,6 +1335,47 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DataflowFiles')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Dataset",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Sync",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "DerivedColumn1"
+						},
+						{
+							"name": "Filter1"
+						}
+					],
+					"script": "source(output(\n\t\tDESYNPUF_ID as string,\n\t\tCLM_ID as string,\n\t\tCLM_FROM_DT as date,\n\t\tCLM_THRU_DT as date,\n\t\tICD9_DGNS_CD_1 as string,\n\t\tICD9_DGNS_CD_2 as string,\n\t\tICD9_DGNS_CD_3 as string,\n\t\tICD9_DGNS_CD_4 as string,\n\t\tICD9_DGNS_CD_5 as string,\n\t\tICD9_DGNS_CD_6 as string,\n\t\tICD9_DGNS_CD_7 as string,\n\t\tICD9_DGNS_CD_8 as string,\n\t\tPRF_PHYSN_NPI_1 as string,\n\t\tPRF_PHYSN_NPI_2 as string,\n\t\tPRF_PHYSN_NPI_3 as string,\n\t\tPRF_PHYSN_NPI_4 as string,\n\t\tPRF_PHYSN_NPI_5 as string,\n\t\tPRF_PHYSN_NPI_6 as string,\n\t\tPRF_PHYSN_NPI_7 as string,\n\t\tPRF_PHYSN_NPI_8 as string,\n\t\tPRF_PHYSN_NPI_9 as string,\n\t\tPRF_PHYSN_NPI_10 as string,\n\t\tPRF_PHYSN_NPI_11 as string,\n\t\tPRF_PHYSN_NPI_12 as string,\n\t\tPRF_PHYSN_NPI_13 as string,\n\t\tTAX_NUM_1 as string,\n\t\tTAX_NUM_2 as string,\n\t\tTAX_NUM_3 as string,\n\t\tTAX_NUM_4 as string,\n\t\tTAX_NUM_5 as string,\n\t\tTAX_NUM_6 as string,\n\t\tTAX_NUM_7 as string,\n\t\tTAX_NUM_8 as string,\n\t\tTAX_NUM_9 as string,\n\t\tTAX_NUM_10 as string,\n\t\tTAX_NUM_11 as string,\n\t\tTAX_NUM_12 as string,\n\t\tTAX_NUM_13 as string,\n\t\tHCPCS_CD_1 as string,\n\t\tHCPCS_CD_2 as string,\n\t\tHCPCS_CD_3 as string,\n\t\tHCPCS_CD_4 as string,\n\t\tHCPCS_CD_5 as string,\n\t\tHCPCS_CD_6 as string,\n\t\tHCPCS_CD_7 as string,\n\t\tHCPCS_CD_8 as string,\n\t\tHCPCS_CD_9 as string,\n\t\tHCPCS_CD_10 as string,\n\t\tHCPCS_CD_11 as string,\n\t\tHCPCS_CD_12 as string,\n\t\tHCPCS_CD_13 as string,\n\t\tLINE_NCH_PMT_AMT_1 as float,\n\t\tLINE_NCH_PMT_AMT_2 as float,\n\t\tLINE_NCH_PMT_AMT_3 as float,\n\t\tLINE_NCH_PMT_AMT_4 as float,\n\t\tLINE_NCH_PMT_AMT_5 as float,\n\t\tLINE_NCH_PMT_AMT_6 as float,\n\t\tLINE_NCH_PMT_AMT_7 as float,\n\t\tLINE_NCH_PMT_AMT_8 as float,\n\t\tLINE_NCH_PMT_AMT_9 as float,\n\t\tLINE_NCH_PMT_AMT_10 as float,\n\t\tLINE_NCH_PMT_AMT_11 as float,\n\t\tLINE_NCH_PMT_AMT_12 as float,\n\t\tLINE_NCH_PMT_AMT_13 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_1 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_2 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_3 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_4 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_5 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_6 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_7 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_8 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_9 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_10 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_11 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_12 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_13 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_1 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_2 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_3 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_4 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_5 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_6 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_7 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_8 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_9 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_10 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_11 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_12 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_13 as float,\n\t\tLINE_COINSRNC_AMT_1 as float,\n\t\tLINE_COINSRNC_AMT_2 as float,\n\t\tLINE_COINSRNC_AMT_3 as float,\n\t\tLINE_COINSRNC_AMT_4 as float,\n\t\tLINE_COINSRNC_AMT_5 as float,\n\t\tLINE_COINSRNC_AMT_6 as float,\n\t\tLINE_COINSRNC_AMT_7 as float,\n\t\tLINE_COINSRNC_AMT_8 as float,\n\t\tLINE_COINSRNC_AMT_9 as float,\n\t\tLINE_COINSRNC_AMT_10 as float,\n\t\tLINE_COINSRNC_AMT_11 as float,\n\t\tLINE_COINSRNC_AMT_12 as float,\n\t\tLINE_COINSRNC_AMT_13 as float,\n\t\tLINE_ALOWD_CHRG_AMT_1 as float,\n\t\tLINE_ALOWD_CHRG_AMT_2 as float,\n\t\tLINE_ALOWD_CHRG_AMT_3 as float,\n\t\tLINE_ALOWD_CHRG_AMT_4 as float,\n\t\tLINE_ALOWD_CHRG_AMT_5 as float,\n\t\tLINE_ALOWD_CHRG_AMT_6 as float,\n\t\tLINE_ALOWD_CHRG_AMT_7 as float,\n\t\tLINE_ALOWD_CHRG_AMT_8 as float,\n\t\tLINE_ALOWD_CHRG_AMT_9 as float,\n\t\tLINE_ALOWD_CHRG_AMT_10 as float,\n\t\tLINE_ALOWD_CHRG_AMT_11 as float,\n\t\tLINE_ALOWD_CHRG_AMT_12 as float,\n\t\tLINE_ALOWD_CHRG_AMT_13 as float,\n\t\tLINE_PRCSG_IND_CD_1 as string,\n\t\tLINE_PRCSG_IND_CD_2 as string,\n\t\tLINE_PRCSG_IND_CD_3 as string,\n\t\tLINE_PRCSG_IND_CD_4 as string,\n\t\tLINE_PRCSG_IND_CD_5 as string,\n\t\tLINE_PRCSG_IND_CD_6 as string,\n\t\tLINE_PRCSG_IND_CD_7 as string,\n\t\tLINE_PRCSG_IND_CD_8 as string,\n\t\tLINE_PRCSG_IND_CD_9 as string,\n\t\tLINE_PRCSG_IND_CD_10 as string,\n\t\tLINE_PRCSG_IND_CD_11 as string,\n\t\tLINE_PRCSG_IND_CD_12 as string,\n\t\tLINE_PRCSG_IND_CD_13 as string,\n\t\tLINE_ICD9_DGNS_CD_1 as string,\n\t\tLINE_ICD9_DGNS_CD_2 as string,\n\t\tLINE_ICD9_DGNS_CD_3 as string,\n\t\tLINE_ICD9_DGNS_CD_4 as string,\n\t\tLINE_ICD9_DGNS_CD_5 as string,\n\t\tLINE_ICD9_DGNS_CD_6 as string,\n\t\tLINE_ICD9_DGNS_CD_7 as string,\n\t\tLINE_ICD9_DGNS_CD_8 as string,\n\t\tLINE_ICD9_DGNS_CD_9 as string,\n\t\tLINE_ICD9_DGNS_CD_10 as string,\n\t\tLINE_ICD9_DGNS_CD_11 as string,\n\t\tLINE_ICD9_DGNS_CD_12 as string,\n\t\tLINE_ICD9_DGNS_CD_13 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> source1\nFilter1 derive(fileName = DESYNPUF_ID + \".snappy.parquet\") ~> DerivedColumn1\nsource1 filter(ICD9_DGNS_CD_1=='1179') ~> Filter1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\trowUrlColumn:'fileName',\n\ttruncate: true,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/Dataset')]",
+				"[concat(variables('workspaceId'), '/datasets/Sync')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
@@ -1945,664 +2653,6 @@
 			},
 			"dependsOn": [],
 			"location": "eastus2"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/Dataset')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "analyticsstoragejrs02",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "part-00000-b3877c92-bffa-4c90-82fb-5eca661d4022-c000.snappy.parquet",
-						"folderPath": "carrierClaims/parquet",
-						"fileSystem": "native"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "DESYNPUF_ID",
-						"type": "UTF8"
-					},
-					{
-						"name": "CLM_ID",
-						"type": "UTF8"
-					},
-					{
-						"name": "CLM_FROM_DT",
-						"type": "DATE"
-					},
-					{
-						"name": "CLM_THRU_DT",
-						"type": "DATE"
-					},
-					{
-						"name": "ICD9_DGNS_CD_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICD9_DGNS_CD_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_9",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_10",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_11",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_12",
-						"type": "UTF8"
-					},
-					{
-						"name": "PRF_PHYSN_NPI_13",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_9",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_10",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_11",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_12",
-						"type": "UTF8"
-					},
-					{
-						"name": "TAX_NUM_13",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_9",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_10",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_11",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_12",
-						"type": "UTF8"
-					},
-					{
-						"name": "HCPCS_CD_13",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_1",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_2",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_3",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_4",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_5",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_6",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_7",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_8",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_9",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_10",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_11",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_12",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_NCH_PMT_AMT_13",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_1",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_2",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_3",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_4",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_5",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_6",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_7",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_8",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_9",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_10",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_11",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_12",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PTB_DDCTBL_AMT_13",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_1",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_2",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_3",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_4",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_5",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_6",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_7",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_8",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_9",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_10",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_11",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_12",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_BENE_PRMRY_PYR_PD_AMT_13",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_1",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_2",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_3",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_4",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_5",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_6",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_7",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_8",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_9",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_10",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_11",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_12",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_COINSRNC_AMT_13",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_1",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_2",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_3",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_4",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_5",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_6",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_7",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_8",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_9",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_10",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_11",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_12",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_ALOWD_CHRG_AMT_13",
-						"type": "FLOAT"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_9",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_10",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_11",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_12",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_PRCSG_IND_CD_13",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_1",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_2",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_3",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_4",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_5",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_6",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_7",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_8",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_9",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_10",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_11",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_12",
-						"type": "UTF8"
-					},
-					{
-						"name": "LINE_ICD9_DGNS_CD_13",
-						"type": "UTF8"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/analyticsstoragejrs02')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/DataflowFiles')]",
-			"type": "Microsoft.Synapse/workspaces/dataflows",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "Dataset",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "Sync",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "DerivedColumn1"
-						}
-					],
-					"script": "source(output(\n\t\tDESYNPUF_ID as string,\n\t\tCLM_ID as string,\n\t\tCLM_FROM_DT as date,\n\t\tCLM_THRU_DT as date,\n\t\tICD9_DGNS_CD_1 as string,\n\t\tICD9_DGNS_CD_2 as string,\n\t\tICD9_DGNS_CD_3 as string,\n\t\tICD9_DGNS_CD_4 as string,\n\t\tICD9_DGNS_CD_5 as string,\n\t\tICD9_DGNS_CD_6 as string,\n\t\tICD9_DGNS_CD_7 as string,\n\t\tICD9_DGNS_CD_8 as string,\n\t\tPRF_PHYSN_NPI_1 as string,\n\t\tPRF_PHYSN_NPI_2 as string,\n\t\tPRF_PHYSN_NPI_3 as string,\n\t\tPRF_PHYSN_NPI_4 as string,\n\t\tPRF_PHYSN_NPI_5 as string,\n\t\tPRF_PHYSN_NPI_6 as string,\n\t\tPRF_PHYSN_NPI_7 as string,\n\t\tPRF_PHYSN_NPI_8 as string,\n\t\tPRF_PHYSN_NPI_9 as string,\n\t\tPRF_PHYSN_NPI_10 as string,\n\t\tPRF_PHYSN_NPI_11 as string,\n\t\tPRF_PHYSN_NPI_12 as string,\n\t\tPRF_PHYSN_NPI_13 as string,\n\t\tTAX_NUM_1 as string,\n\t\tTAX_NUM_2 as string,\n\t\tTAX_NUM_3 as string,\n\t\tTAX_NUM_4 as string,\n\t\tTAX_NUM_5 as string,\n\t\tTAX_NUM_6 as string,\n\t\tTAX_NUM_7 as string,\n\t\tTAX_NUM_8 as string,\n\t\tTAX_NUM_9 as string,\n\t\tTAX_NUM_10 as string,\n\t\tTAX_NUM_11 as string,\n\t\tTAX_NUM_12 as string,\n\t\tTAX_NUM_13 as string,\n\t\tHCPCS_CD_1 as string,\n\t\tHCPCS_CD_2 as string,\n\t\tHCPCS_CD_3 as string,\n\t\tHCPCS_CD_4 as string,\n\t\tHCPCS_CD_5 as string,\n\t\tHCPCS_CD_6 as string,\n\t\tHCPCS_CD_7 as string,\n\t\tHCPCS_CD_8 as string,\n\t\tHCPCS_CD_9 as string,\n\t\tHCPCS_CD_10 as string,\n\t\tHCPCS_CD_11 as string,\n\t\tHCPCS_CD_12 as string,\n\t\tHCPCS_CD_13 as string,\n\t\tLINE_NCH_PMT_AMT_1 as float,\n\t\tLINE_NCH_PMT_AMT_2 as float,\n\t\tLINE_NCH_PMT_AMT_3 as float,\n\t\tLINE_NCH_PMT_AMT_4 as float,\n\t\tLINE_NCH_PMT_AMT_5 as float,\n\t\tLINE_NCH_PMT_AMT_6 as float,\n\t\tLINE_NCH_PMT_AMT_7 as float,\n\t\tLINE_NCH_PMT_AMT_8 as float,\n\t\tLINE_NCH_PMT_AMT_9 as float,\n\t\tLINE_NCH_PMT_AMT_10 as float,\n\t\tLINE_NCH_PMT_AMT_11 as float,\n\t\tLINE_NCH_PMT_AMT_12 as float,\n\t\tLINE_NCH_PMT_AMT_13 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_1 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_2 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_3 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_4 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_5 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_6 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_7 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_8 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_9 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_10 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_11 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_12 as float,\n\t\tLINE_BENE_PTB_DDCTBL_AMT_13 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_1 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_2 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_3 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_4 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_5 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_6 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_7 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_8 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_9 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_10 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_11 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_12 as float,\n\t\tLINE_BENE_PRMRY_PYR_PD_AMT_13 as float,\n\t\tLINE_COINSRNC_AMT_1 as float,\n\t\tLINE_COINSRNC_AMT_2 as float,\n\t\tLINE_COINSRNC_AMT_3 as float,\n\t\tLINE_COINSRNC_AMT_4 as float,\n\t\tLINE_COINSRNC_AMT_5 as float,\n\t\tLINE_COINSRNC_AMT_6 as float,\n\t\tLINE_COINSRNC_AMT_7 as float,\n\t\tLINE_COINSRNC_AMT_8 as float,\n\t\tLINE_COINSRNC_AMT_9 as float,\n\t\tLINE_COINSRNC_AMT_10 as float,\n\t\tLINE_COINSRNC_AMT_11 as float,\n\t\tLINE_COINSRNC_AMT_12 as float,\n\t\tLINE_COINSRNC_AMT_13 as float,\n\t\tLINE_ALOWD_CHRG_AMT_1 as float,\n\t\tLINE_ALOWD_CHRG_AMT_2 as float,\n\t\tLINE_ALOWD_CHRG_AMT_3 as float,\n\t\tLINE_ALOWD_CHRG_AMT_4 as float,\n\t\tLINE_ALOWD_CHRG_AMT_5 as float,\n\t\tLINE_ALOWD_CHRG_AMT_6 as float,\n\t\tLINE_ALOWD_CHRG_AMT_7 as float,\n\t\tLINE_ALOWD_CHRG_AMT_8 as float,\n\t\tLINE_ALOWD_CHRG_AMT_9 as float,\n\t\tLINE_ALOWD_CHRG_AMT_10 as float,\n\t\tLINE_ALOWD_CHRG_AMT_11 as float,\n\t\tLINE_ALOWD_CHRG_AMT_12 as float,\n\t\tLINE_ALOWD_CHRG_AMT_13 as float,\n\t\tLINE_PRCSG_IND_CD_1 as string,\n\t\tLINE_PRCSG_IND_CD_2 as string,\n\t\tLINE_PRCSG_IND_CD_3 as string,\n\t\tLINE_PRCSG_IND_CD_4 as string,\n\t\tLINE_PRCSG_IND_CD_5 as string,\n\t\tLINE_PRCSG_IND_CD_6 as string,\n\t\tLINE_PRCSG_IND_CD_7 as string,\n\t\tLINE_PRCSG_IND_CD_8 as string,\n\t\tLINE_PRCSG_IND_CD_9 as string,\n\t\tLINE_PRCSG_IND_CD_10 as string,\n\t\tLINE_PRCSG_IND_CD_11 as string,\n\t\tLINE_PRCSG_IND_CD_12 as string,\n\t\tLINE_PRCSG_IND_CD_13 as string,\n\t\tLINE_ICD9_DGNS_CD_1 as string,\n\t\tLINE_ICD9_DGNS_CD_2 as string,\n\t\tLINE_ICD9_DGNS_CD_3 as string,\n\t\tLINE_ICD9_DGNS_CD_4 as string,\n\t\tLINE_ICD9_DGNS_CD_5 as string,\n\t\tLINE_ICD9_DGNS_CD_6 as string,\n\t\tLINE_ICD9_DGNS_CD_7 as string,\n\t\tLINE_ICD9_DGNS_CD_8 as string,\n\t\tLINE_ICD9_DGNS_CD_9 as string,\n\t\tLINE_ICD9_DGNS_CD_10 as string,\n\t\tLINE_ICD9_DGNS_CD_11 as string,\n\t\tLINE_ICD9_DGNS_CD_12 as string,\n\t\tLINE_ICD9_DGNS_CD_13 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> source1\nsource1 derive(fileName = DESYNPUF_ID + \".snappy.parquet\") ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\trowUrlColumn:'fileName',\n\ttruncate: true,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/datasets/Dataset')]",
-				"[concat(variables('workspaceId'), '/datasets/Sync')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/Sync')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "analyticsstoragejrs02",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "Test",
-						"fileSystem": "native"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/analyticsstoragejrs02')]"
-			]
 		}
 	]
 }
