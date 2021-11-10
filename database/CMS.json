@@ -1,0 +1,22 @@
+{
+	"name": "CMS",
+	"properties": {
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Name": "CMS",
+		"EntityType": "DATABASE",
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://synapselake@synapselakejrs.dfs.core.windows.net/CMS",
+			"Properties": {
+				"FormatType": "parquet",
+				"LinkedServiceName": "synapsejrs-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
