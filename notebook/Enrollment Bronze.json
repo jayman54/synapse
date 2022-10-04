@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "8fc5314a-20e0-4c2e-9ea1-f048999add4c"
+				"spark.autotune.trackingId": "cc4d1f9a-a115-420b-9d2b-f963613771b6"
 			}
 		},
 		"metadata": {
@@ -170,9 +170,10 @@
 					}
 				},
 				"source": [
-					"bronzeParquet = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/enrollment'"
+					"bronzeParquet = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/enrollment'\r\n",
+					"bronzeDelta = 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/delta/enrollment'"
 				],
-				"execution_count": 1
+				"execution_count": 21
 			},
 			{
 				"cell_type": "code",
@@ -203,9 +204,9 @@
 			{
 				"cell_type": "code",
 				"source": [
-					"df.dtypes"
+					"df.write.mode(\"overwrite\").format(\"delta\").save(bronzeDelta)"
 				],
-				"execution_count": 18
+				"execution_count": 22
 			},
 			{
 				"cell_type": "code",
@@ -267,11 +268,11 @@
 				"source": [
 					"%%sql\n",
 					"\n",
-					"CREATE TABLE enrollment\n",
-					"USING PARQUET\n",
-					"LOCATION 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/enrollment'"
+					"CREATE TABLE enrollment_delta\n",
+					"USING DELTA\n",
+					"LOCATION 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/delta/enrollment'"
 				],
-				"execution_count": 20
+				"execution_count": 23
 			},
 			{
 				"cell_type": "code",
@@ -427,14 +428,15 @@
 				"metadata": {
 					"microsoft": {
 						"language": "sparksql"
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
 					"%%sql\n",
 					"\n",
-					"OPTIMIZE claims_delta"
+					"OPTIMIZE enrollment_delta"
 				],
-				"execution_count": 17
+				"execution_count": 24
 			},
 			{
 				"cell_type": "code",
