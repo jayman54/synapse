@@ -1,0 +1,204 @@
+{
+	"name": "Notebook 3",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "myspark",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "e3875bf2-b8ab-44f3-8b78-d1b689451983"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_sparksql",
+				"display_name": "Synapse SQL"
+			},
+			"language_info": {
+				"name": "sql"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/201fa29b-5672-4347-9909-fa57d294b356/resourceGroups/synapsejrs/providers/Microsoft.Synapse/workspaces/synapsejrs/bigDataPools/myspark",
+				"name": "myspark",
+				"type": "Spark",
+				"endpoint": "https://synapsejrs.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/myspark",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"select \r\n",
+					"distinct MeterCategory\r\n",
+					"from enrollment_delta\r\n",
+					"order by 1\r\n",
+					""
+				],
+				"execution_count": 38
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"Select min(date) date, weekofyear(a.date) Wk, a.MeterCategory, avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"from enrollment_delta\r\n",
+					"where meterCategory in (\"Storage\",\"Azure Databricks\",\"Azure Synapse Analytics\",\"Cognitive Services\",\"Azure API for FHIR\",\"SQL Database\")\r\n",
+					"group by date, MeterCategory) a\r\n",
+					"group by a.MeterCategory, weekofyear(a.date)\r\n",
+					"Order by 1"
+				],
+				"execution_count": 51
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"Select min(date) date, weekofyear(a.date) Wk, a.MeterCategory, avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"from enrollment_delta\r\n",
+					"where meterCategory in (\"Azure Data Factory v2\")\r\n",
+					"group by date, MeterCategory) a\r\n",
+					"group by a.MeterCategory, weekofyear(a.date)\r\n",
+					"Order by 1"
+				],
+				"execution_count": 50
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"\r\n",
+					"Select min(date) date, weekofyear(a.date) Wk, a.MeterCategory, avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"from enrollment_delta\r\n",
+					"where meterCategory in (\"Azure Cosmos DB\")\r\n",
+					"group by date, MeterCategory) a\r\n",
+					"group by a.MeterCategory, weekofyear(a.date)\r\n",
+					"Order by 1"
+				],
+				"execution_count": 52
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"select weekofyear(date) wk, avg(cost) avgDailyCost\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"Select \r\n",
+					"    date, sum(Cost) cost\r\n",
+					"from enrollment_delta\r\n",
+					"where MeterCategory in (\"Azure Synapse Analytics\") \r\n",
+					"Group by date\r\n",
+					")\r\n",
+					"group by weekofyear(date)\r\n",
+					"order by 1"
+				],
+				"execution_count": 39
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"select weekofyear(date) wk, avg(cost) avgDailyCost\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"Select \r\n",
+					"    date, sum(Cost) cost\r\n",
+					"from enrollment_delta\r\n",
+					"where MeterCategory in (\"Cognitive Services\") \r\n",
+					"Group by date\r\n",
+					")\r\n",
+					"group by weekofyear(date)\r\n",
+					"order by 1"
+				],
+				"execution_count": 40
+			}
+		]
+	}
+}
