@@ -1,5 +1,5 @@
 {
-	"name": "Notebook 3",
+	"name": "Enrollment SQL",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e3875bf2-b8ab-44f3-8b78-d1b689451983"
+				"spark.autotune.trackingId": "7c5f4329-3984-4c33-ae7f-ba11761cf122"
 			}
 		},
 		"metadata": {
