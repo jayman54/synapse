@@ -17,15 +17,15 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "7c5f4329-3984-4c33-ae7f-ba11761cf122"
+				"spark.autotune.trackingId": "5bfc6ef2-04e5-49b3-9658-20d19db736a6"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
 			"enableDebugMode": false,
 			"kernelspec": {
-				"name": "synapse_sparksql",
-				"display_name": "Synapse SQL"
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
 			},
 			"language_info": {
 				"name": "sql"
@@ -54,13 +54,18 @@
 					"collapsed": false
 				},
 				"source": [
+					"select\r\n",
 					"select \r\n",
-					"distinct MeterCategory\r\n",
+					"MeterCategory, sum(cost) cost\r\n",
 					"from enrollment_delta\r\n",
-					"order by 1\r\n",
+					"where month(date)>=7\r\n",
+					"group by MeterCategory\r\n",
+					"having sum(cost) >= 1000\r\n",
+					"--order by 2 desc\r\n",
+					"\r\n",
 					""
 				],
-				"execution_count": 38
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -80,13 +85,14 @@
 					"Select min(date) date, weekofyear(a.date) Wk, a.MeterCategory, avg(dailyCost) avgDailyCost\r\n",
 					"from\r\n",
 					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
-					"from enrollment_delta\r\n",
+					"from enrollment\r\n",
 					"where meterCategory in (\"Storage\",\"Azure Databricks\",\"Azure Synapse Analytics\",\"Cognitive Services\",\"Azure API for FHIR\",\"SQL Database\")\r\n",
 					"group by date, MeterCategory) a\r\n",
+					"where weekofyear(a.date) < 40\r\n",
 					"group by a.MeterCategory, weekofyear(a.date)\r\n",
 					"Order by 1"
 				],
-				"execution_count": 51
+				"execution_count": 16
 			},
 			{
 				"cell_type": "code",
@@ -103,16 +109,58 @@
 					"collapsed": false
 				},
 				"source": [
-					"Select min(date) date, weekofyear(a.date) Wk, a.MeterCategory, avg(dailyCost) avgDailyCost\r\n",
+					"SELECT\r\n",
+					"    d.wk,\r\n",
+					"    d.meterCategory,\r\n",
+					"    d.avgDailyCostGrowth\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"SELECT\r\n",
+					"    c.date,\r\n",
+					"    c.wk,\r\n",
+					"    c.meterCategory,\r\n",
+					"    (c.avgDailyCost -  c.avgDailyCost2) / c.avgDailyCost2 avgDailyCostGrowth\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"\r\n",
+					"SELECT\r\n",
+					"    b.date,\r\n",
+					"    b.wk,\r\n",
+					"    b.meterCategory,\r\n",
+					"    b.avgDailyCost,\r\n",
+					"    lag(b.avgDailyCost, 1) over (partition by b.meterCategory order by b.date) avgDailyCost2\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"Select \r\n",
+					"    min(date) date, \r\n",
+					"    weekofyear(a.date) Wk, \r\n",
+					"    a.MeterCategory, \r\n",
+					"    avg(dailyCost) avgDailyCost\r\n",
 					"from\r\n",
-					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
-					"from enrollment_delta\r\n",
-					"where meterCategory in (\"Azure Data Factory v2\")\r\n",
-					"group by date, MeterCategory) a\r\n",
-					"group by a.MeterCategory, weekofyear(a.date)\r\n",
-					"Order by 1"
+					"(\r\n",
+					"        SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"        from enrollment\r\n",
+					"        where meterCategory in (\"Azure Data Factory v2\")\r\n",
+					"        group by date, MeterCategory\r\n",
+					") a\r\n",
+					"group by \r\n",
+					"    a.MeterCategory, \r\n",
+					"    weekofyear(a.date)\r\n",
+					"having min(date) < \"2022-10-03\"\r\n",
+					") b\r\n",
+					") c\r\n",
+					"WHERE c.avgDailyCost2 IS NOT NULL\r\n",
+					") d\r\n",
+					"PIVOT (\r\n",
+					"  d.avgDailyCostGrowth\r\n",
+					"  FOR d.wk in ( 14,15,16,17,18\r\n",
+					"    \r\n",
+					"  )\r\n",
+					")\r\n",
+					"ORDER BY meterCategory DESC\r\n",
+					""
 				],
-				"execution_count": 50
+				"execution_count": 25
 			},
 			{
 				"cell_type": "code",
