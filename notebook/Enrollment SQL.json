@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "8289e9b1-8d5d-4621-953e-7170204012c9"
+				"spark.autotune.trackingId": "f37f32fd-3d97-4a03-9cd6-0e78ad841fb5"
 			}
 		},
 		"metadata": {
@@ -54,6 +54,8 @@
 					"collapsed": false
 				},
 				"source": [
+					"CREATE OR REPLACE TEMPORARY VIEW vw_TotalACR\r\n",
+					"AS\r\n",
 					"SELECT\r\n",
 					"    a.MeterCategory,\r\n",
 					"    a.ACR,\r\n",
@@ -65,12 +67,124 @@
 					"    MeterCategory, \r\n",
 					"    sum(cost) ACR\r\n",
 					"from enrollment\r\n",
-					"where date >= '2022-07-01'\r\n",
+					"where date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
 					"group by MeterCategory\r\n",
 					")a\r\n",
 					"ORDER BY 2 DESC"
 				],
-				"execution_count": 51
+				"execution_count": 59
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"CREATE OR REPLACE TEMPORARY VIEW vw_AvgDaily\r\n",
+					"AS\r\n",
+					"SELECT\r\n",
+					"    c.date,\r\n",
+					"    c.MeterCategory,\r\n",
+					"    c.avgDailyCost,\r\n",
+					"    (c.avgDailyCost -  c.avgDailyCost2) / c.avgDailyCost2 avgDailyCostGrowth\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"\r\n",
+					"SELECT\r\n",
+					"    b.date,\r\n",
+					"    b.wk,\r\n",
+					"    b.meterCategory,\r\n",
+					"    b.avgDailyCost,\r\n",
+					"    first_value(b.avgDailyCost) over (partition by b.meterCategory order by b.date) avgDailyCost2\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"Select \r\n",
+					"    min(date) date, \r\n",
+					"    weekofyear(a.date) Wk, \r\n",
+					"    a.MeterCategory, \r\n",
+					"    avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(\r\n",
+					"        SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"        from enrollment\r\n",
+					"        where \r\n",
+					"            date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
+					"        group by date, MeterCategory\r\n",
+					") a\r\n",
+					"group by \r\n",
+					"    a.MeterCategory, \r\n",
+					"    weekofyear(a.date)\r\n",
+					") b\r\n",
+					") c\r\n",
+					"Where C.date = '2022-10-03'"
+				],
+				"execution_count": 60
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"SELECT\r\n",
+					"    T.MeterCategory,\r\n",
+					"    T.ACR,\r\n",
+					"    T.Contribution,\r\n",
+					"    T.TotalContribution,\r\n",
+					"    D.avgDailyCost,\r\n",
+					"    D.avgDailyCostGrowth\r\n",
+					"FROM vw_TotalACR T LEFT JOIN vw_AvgDaily D ON T.MeterCategory = D.MeterCategory\r\n",
+					"ORDER BY T.TotalContribution"
+				],
+				"execution_count": 62
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"Select \r\n",
+					"    min(date) date, \r\n",
+					"    weekofyear(a.date) Wk, \r\n",
+					"    a.MeterCategory, \r\n",
+					"    avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
+					"from enrollment\r\n",
+					"where \r\n",
+					"group by date, MeterCategory) a\r\n",
+					"where a.date between '2022-07-01' and '2022-10-03'\r\n",
+					"group by a.MeterCategory, weekofyear(a.date)\r\n",
+					"Order by 1"
+				],
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -291,9 +405,10 @@
 					"collapsed": false
 				},
 				"source": [
+					"CREATE OR REPLACE TEMPORARY VIEW vw_AvgDaily\r\n",
+					"AS\r\n",
 					"SELECT\r\n",
 					"    c.date,\r\n",
-					"    c.wk,\r\n",
 					"    c.meterCategory,\r\n",
 					"    c.avgDailyCost,\r\n",
 					"    (c.avgDailyCost -  c.avgDailyCost2) / c.avgDailyCost2 avgDailyCostGrowth\r\n",
@@ -318,20 +433,36 @@
 					"        SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
 					"        from enrollment\r\n",
 					"        where \r\n",
-					"         meterCategory in ('Azure App Service','Virtual Machines','Storage','SQL Database','Log Analytics','Azure Databricks','Azure Monitor','Azure API for FHIR','Azure Synapse Analytics')-- ,'Cognitive Services','Azure Cosmos DB','Sentinel','Service Bus','Application Gateway') \r\n",
-					"        AND date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
+					"            date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
 					"        group by date, MeterCategory\r\n",
 					") a\r\n",
 					"group by \r\n",
 					"    a.MeterCategory, \r\n",
 					"    weekofyear(a.date)\r\n",
-					"--having min(date) < \"2022-10-03\"\r\n",
 					") b\r\n",
 					") c\r\n",
-					"--Where C.date = '2022-10-03'\r\n",
-					"    order by 4"
+					"Where C.date = '2022-10-03'"
 				],
-				"execution_count": 36
+				"execution_count": 57
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"SELECT * from vw_AvgDaily"
+				],
+				"execution_count": 58
 			}
 		]
 	}
