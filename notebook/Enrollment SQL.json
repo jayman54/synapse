@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "230071c2-1b29-4239-9e0d-fdface62f7f0"
+				"spark.autotune.trackingId": "8289e9b1-8d5d-4621-953e-7170204012c9"
 			}
 		},
 		"metadata": {
@@ -54,17 +54,23 @@
 					"collapsed": false
 				},
 				"source": [
+					"SELECT\r\n",
+					"    a.MeterCategory,\r\n",
+					"    a.ACR,\r\n",
+					"    a.ACR/ (sum(ACR) over() ) Contribution,\r\n",
+					"    SUM(ACR) OVER(order by ACR DESC rows between unbounded preceding and 0 preceding) /  (sum(ACR) over() ) TotalContribution\r\n",
+					"FROM\r\n",
+					"(\r\n",
 					"select \r\n",
-					"MeterCategory, sum(cost) cost\r\n",
+					"    MeterCategory, \r\n",
+					"    sum(cost) ACR\r\n",
 					"from enrollment\r\n",
 					"where date >= '2022-07-01'\r\n",
 					"group by MeterCategory\r\n",
-					"--having sum(cost) >= 1000\r\n",
-					"order by 2 desc\r\n",
-					"\r\n",
-					""
+					")a\r\n",
+					"ORDER BY 2 DESC"
 				],
-				"execution_count": 20
+				"execution_count": 51
 			},
 			{
 				"cell_type": "code",
@@ -91,7 +97,7 @@
 					"group by a.MeterCategory, weekofyear(a.date)\r\n",
 					"Order by 1"
 				],
-				"execution_count": 25
+				"execution_count": 38
 			},
 			{
 				"cell_type": "code",
@@ -312,8 +318,8 @@
 					"        SELECT date, MeterCategory, sum(cost) dailyCost\r\n",
 					"        from enrollment\r\n",
 					"        where \r\n",
-					"         meterCategory in (\"Azure Data Factory v2\",\"Storage\") \r\n",
-					"        AND date >= '2022-08-15'\r\n",
+					"         meterCategory in ('Azure App Service','Virtual Machines','Storage','SQL Database','Log Analytics','Azure Databricks','Azure Monitor','Azure API for FHIR','Azure Synapse Analytics')-- ,'Cognitive Services','Azure Cosmos DB','Sentinel','Service Bus','Application Gateway') \r\n",
+					"        AND date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
 					"        group by date, MeterCategory\r\n",
 					") a\r\n",
 					"group by \r\n",
@@ -321,9 +327,11 @@
 					"    weekofyear(a.date)\r\n",
 					"--having min(date) < \"2022-10-03\"\r\n",
 					") b\r\n",
-					") c"
+					") c\r\n",
+					"--Where C.date = '2022-10-03'\r\n",
+					"    order by 4"
 				],
-				"execution_count": 15
+				"execution_count": 36
 			}
 		]
 	}
