@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "2bc88be5-589a-40af-9563-04c78e178963"
+				"spark.autotune.trackingId": "fcd54a54-9479-4dd1-af47-151c5f91630a"
 			}
 		},
 		"metadata": {
@@ -106,7 +106,7 @@
 					"StructField('PublisherType', StringType(), True)]\n",
 					")"
 				],
-				"execution_count": 1
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -170,14 +170,14 @@
 					}
 				},
 				"source": [
-					"df.write.mode(\"overwrite\").format(\"parquet\").save(bronzeParquet)"
+					"#df.write.mode(\"overwrite\").format(\"parquet\").save(bronzeParquet)"
 				],
 				"execution_count": 5
 			},
 			{
 				"cell_type": "code",
 				"source": [
-					"df = spark.read.format(\"parquet\").load(bronzeParquet)"
+					"#df = spark.read.format(\"parquet\").load(bronzeParquet)"
 				],
 				"execution_count": 6
 			},
@@ -216,10 +216,9 @@
 				"source": [
 					"%%sql\n",
 					"\n",
-					"DROP TABLE IF EXISTS enrollment_delta\n",
 					"DROP TABLE IF EXISTS enrollment"
 				],
-				"execution_count": 9
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -253,7 +252,7 @@
 					"USING DELTA\n",
 					"LOCATION 'abfss://synapselake@synapselakejrs.dfs.core.windows.net/enrollment/Bronze/delta/enrollment'"
 				],
-				"execution_count": 23
+				"execution_count": 9
 			},
 			{
 				"cell_type": "code",
@@ -266,9 +265,9 @@
 				"source": [
 					"%%sql\n",
 					"\n",
-					"OPTIMIZE enrollment_delta"
+					"OPTIMIZE enrollment"
 				],
-				"execution_count": 8
+				"execution_count": 11
 			},
 			{
 				"cell_type": "code",
