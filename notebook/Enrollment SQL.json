@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "f37f32fd-3d97-4a03-9cd6-0e78ad841fb5"
+				"spark.autotune.trackingId": "81379d55-c6a0-42ef-a209-29fd301f6089"
 			}
 		},
 		"metadata": {
@@ -460,9 +460,66 @@
 					"collapsed": false
 				},
 				"source": [
-					"SELECT * from vw_AvgDaily"
+					"select * from enrollment limit 1"
 				],
-				"execution_count": 58
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"SELECT\r\n",
+					"    c.date,\r\n",
+					"    c.meterCategory,\r\n",
+					"    c.avgDailyACR,\r\n",
+					"    (c.avgDailyACR -  c.avgDailyACRFirst) / c.avgDailyACRFirst avgDailyACRGrowth\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"\r\n",
+					"SELECT\r\n",
+					"    b.date,\r\n",
+					"    b.wk,\r\n",
+					"    b.meterCategory,\r\n",
+					"    b.avgDailyACR,\r\n",
+					"    first_value(b.avgDailyACR) over (Partition by meterCategory order by b.date) avgDailyACRFirst\r\n",
+					"FROM\r\n",
+					"(\r\n",
+					"Select \r\n",
+					"    min(date) date, \r\n",
+					"    meterCategory,\r\n",
+					"    weekofyear(a.date) Wk, \r\n",
+					"    avg(dailyACR) avgDailyACR\r\n",
+					"from\r\n",
+					"(\r\n",
+					"        SELECT \r\n",
+					"        date, \r\n",
+					"        meterCategory,\r\n",
+					"        sum(cost) dailyACR\r\n",
+					"        from enrollment\r\n",
+					"        where \r\n",
+					"            date BETWEEN '2022-07-01' and '2022-10-03'\r\n",
+					"            and SubscriptionName like 'az3-%'\r\n",
+					"        group by date, meterCategory\r\n",
+					") a\r\n",
+					"group by \r\n",
+					"    weekofyear(a.date),\r\n",
+					"    a.meterCategory\r\n",
+					") b\r\n",
+					") c\r\n",
+					""
+				],
+				"execution_count": 4
 			}
 		]
 	}
