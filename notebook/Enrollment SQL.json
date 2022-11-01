@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "462b61e4-b2c7-417e-82c5-70e38d7444b2"
+				"spark.autotune.trackingId": "565318ad-fba6-48ef-a583-dcedc1a63568"
 			}
 		},
 		"metadata": {
@@ -559,12 +559,17 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
-					""
+					"select additionalInfo, Tags\r\n",
+					"from enrollment\r\n",
+					"where meterCategory in ('Azure Cosmos DB') and ResourceGroup in ('dha-edna-mlp-nlp-prod-rg')\r\n",
+					"and date between '2022-09-01' and '2022-10-24'\r\n",
+					"limit 100"
 				],
-				"execution_count": null
+				"execution_count": 32
 			}
 		]
 	}
