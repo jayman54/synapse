@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ba668ee7-db06-4415-95a1-c704e9966d44"
+				"spark.autotune.trackingId": "462b61e4-b2c7-417e-82c5-70e38d7444b2"
 			}
 		},
 		"metadata": {
@@ -72,7 +72,7 @@
 					")a\r\n",
 					"ORDER BY 2 DESC"
 				],
-				"execution_count": 59
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -520,6 +520,51 @@
 					""
 				],
 				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"Select min(date) date, weekofyear(a.date) Wk, a.ResourceGroup, avg(dailyCost) avgDailyCost\r\n",
+					"from\r\n",
+					"(SELECT date, ResourceGroup, sum(cost) dailyCost\r\n",
+					"from enrollment\r\n",
+					"where meterCategory in ('Azure Cosmos DB') and ResourceGroup in ('dha-edna-mlp-nlp-prod-rg','dha-mlp-auto-prod-rg')\r\n",
+					"group by date, ResourceGroup) a\r\n",
+					"where a.date between '2022-07-01' and '2022-10-24'\r\n",
+					"group by a.ResourceGroup, weekofyear(a.date)\r\n",
+					"Order by 1"
+				],
+				"execution_count": 29
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					""
+				],
+				"execution_count": null
 			}
 		]
 	}
