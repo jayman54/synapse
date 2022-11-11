@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "565318ad-fba6-48ef-a583-dcedc1a63568"
+				"spark.autotune.trackingId": "23995b7a-1ee8-4ba0-aeee-63e007b759c9"
 			}
 		},
 		"metadata": {
@@ -540,13 +540,40 @@
 					"from\r\n",
 					"(SELECT date, ResourceGroup, sum(cost) dailyCost\r\n",
 					"from enrollment\r\n",
-					"where meterCategory in ('Azure Cosmos DB') and ResourceGroup in ('dha-edna-mlp-nlp-prod-rg','dha-mlp-auto-prod-rg')\r\n",
+					"where meterCategory in ('Azure Cosmos DB') \r\n",
+					"    --and ResourceGroup in ('dha-edna-mlp-nlp-prod-rg','dha-mlp-auto-prod-rg')\r\n",
+					"    and \r\n",
+					"    ResourceGroup like 'dha-edna-mlp-nlp%' ---prod-rg','dha-mlp-auto-prod-rg')\r\n",
 					"group by date, ResourceGroup) a\r\n",
 					"where a.date between '2022-07-01' and '2022-10-24'\r\n",
 					"group by a.ResourceGroup, weekofyear(a.date)\r\n",
 					"Order by 1"
 				],
-				"execution_count": 29
+				"execution_count": 7
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"SELECT min(date) date, month(date) mnth, meterCategory, sum(cost) cost\r\n",
+					"from enrollment\r\n",
+					"where ResourceGroup like 'dha-edna-mlp-nlp%'\r\n",
+					"    and date between '2022-07-01' and '2022-10-24'\r\n",
+					"group by month(date), meterCategory\r\n",
+					"Order by 1"
+				],
+				"execution_count": 6
 			},
 			{
 				"cell_type": "code",
